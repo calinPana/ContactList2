@@ -1,10 +1,12 @@
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Contact {
 
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String email;
 
     public Contact(String firstName, String lastName, String phoneNumber) {
         this.firstName = firstName;
@@ -12,7 +14,22 @@ public class Contact {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getFullName(){
+    public Contact(String firstName, String lastName, String phoneNumber, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullName() {
         return firstName + " " + lastName;
     }
 
@@ -60,4 +77,23 @@ public class Contact {
 //    public int compareTo(Contact contact) {
 //        this.getLastName().compareTo(contact.lastName);
 //    }
+
+    public static Contact addContact() throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("First name: ");
+        String firstName = sc.next();
+        System.out.println("Last name: ");
+        String lastName = sc.next();
+        System.out.println("Phone number: ");
+        String phoneNumber = sc.next();
+        System.out.println("Email: ");
+        String email = sc.next();
+
+        if (!email.contains("@")) {
+            throw new Exception("This is not a valid email");
+        }
+
+        return new Contact(firstName, lastName, phoneNumber, email);
+
+    }
 }
