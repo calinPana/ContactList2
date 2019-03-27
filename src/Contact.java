@@ -1,18 +1,22 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Contact {
+public class Contact implements Comparable<Contact> {
 
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String email;
 
-    public Contact(String firstName, String lastName, String phoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-    }
+//    public Contact(String firstName, String lastName, String phoneNumber) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.phoneNumber = phoneNumber;
+//    }
 
     public Contact(String firstName, String lastName, String phoneNumber, String email) {
         this.firstName = firstName;
@@ -73,11 +77,6 @@ public class Contact {
         return Objects.hash(firstName, lastName, phoneNumber);
     }
 
-//    @Override
-//    public int compareTo(Contact contact) {
-//        this.getLastName().compareTo(contact.lastName);
-//    }
-
     public static Contact addContact() throws Exception {
         Scanner sc = new Scanner(System.in);
         System.out.println("First name: ");
@@ -96,4 +95,15 @@ public class Contact {
         return new Contact(firstName, lastName, phoneNumber, email);
 
     }
+
+    @Override
+    public int compareTo(Contact o) {
+        if(this.getLastName().equals(o.getLastName())) {
+            return this.getFirstName().compareTo(o.getFirstName());
+        }
+
+        return this.getLastName().compareTo(o.getLastName());
+    }
+
+
 }
