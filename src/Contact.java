@@ -1,7 +1,3 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -34,7 +30,7 @@ public class Contact implements Comparable<Contact> {
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        return lastName + " " + firstName;
     }
 
     public String getFirstName() {
@@ -98,7 +94,7 @@ public class Contact implements Comparable<Contact> {
 
     @Override
     public int compareTo(Contact o) {
-        if(this.getLastName().equals(o.getLastName())) {
+        if (this.getLastName().equals(o.getLastName())) {
             return this.getFirstName().compareTo(o.getFirstName());
         }
 

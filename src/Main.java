@@ -4,21 +4,11 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
 
         Map<String, Contact> contacts = new TreeMap<>();
         //ca sa le sortez dupa lastName, trebuie sa fac un comparator pentru TreeMap
-//
-//         Contact c1 = new Contact("Ion", "Popescu", "0987654321");
-//         Contact c2 = new Contact("Andrei", "Popa", "1234567890");
-//         Contact c3 = new Contact("Jordi", "Zzzz", "1357924680");
-//         Contact c4 = new Contact("Nuria", "Aaaa", "2468013579");
-//
-//         contacts.put(c1.getFullName(), c1);
-//         contacts.put(c2.getFullName(), c2);
-//         contacts.put(c3.getFullName(), c3);
-//         contacts.put(c4.getFullName(), c4);
 
 //        try {
 //            Contact c3 = Contact.addContact();
@@ -41,10 +31,10 @@ public class Main {
 
             while ((sCurrentLine = in.readLine()) != null) {
                 String[] parts = sCurrentLine.split(",");
-//                for (int i = 0; i < parts.length; i++) {
-//                    System.out.print(parts[i]);
-//                    System.out.println();
-//                }
+                // for (int i = 0; i < parts.length; i++) {
+                    // System.out.print(parts[i]);
+                    // System.out.println();
+                // }
                 String lastName = parts[0];
                 String firstName = parts[1];
                 String phoneNumber = parts[2];
@@ -56,9 +46,12 @@ public class Main {
             System.out.println("The file doesn't exist");
         }
 
-
-        contacts.put("Sasda", new Contact("asfas","asda","123454","q4erwe@dfs.sd"));
-
+//        try {
+//            Contact c3 = Contact.addContact();
+//            contacts.put(c3.getFullName(), c3);
+//        } catch (Exception e) {
+//            System.out.println("This is not a valid email");
+//        }
 
         try {
             writeFile(contacts);
@@ -84,20 +77,25 @@ public class Main {
 //    }
 
     public static void printContacts(Map<String, Contact> contacts) {
-        for (Contact value : contacts.values()) {
-            System.out.println(value.getFullName());
-            System.out.println(value.getPhoneNumber());
+        for (Map.Entry<String, Contact> entry : contacts.entrySet()) {
+            Contact contact = entry.getValue();
+            System.out.println(contact.getFullName());
+            System.out.println(contact.getPhoneNumber());
+            System.out.println(contact.getEmail());
             System.out.println();
         }
     }
 
     public static void writeFile(Map<String, Contact> contacts) throws IOException {
-        BufferedWriter out = new BufferedWriter(new FileWriter("C:\\Users\\JavaUser\\Jademy\\Contacts.txt"));
-
+        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("C:\\Users\\JavaUser\\Jademy\\Contacts.txt")));
+        out.write("LastName,FirstName,PhoneNumber,Email");
+        out.println();
         for(Contact c : contacts.values()) {
             String contact = c.getLastName() + "," + c.getFirstName() + "," + c.getPhoneNumber() + "," + c.getEmail();
             out.write(contact);
+            out.println();
         }
+        out.flush();
     }
 
 //    class SortByLastName implements Comparator<Contact> {
@@ -106,3 +104,9 @@ public class Main {
 //        }
 //    }
 }
+
+//LastName,FirstName,PhoneNumber,Email
+//Popa,Andrei,1234567890,andrei.popa@gmail.com
+//Popescu,Ion,0987654321,ion.popescu@yahoo.com
+//Zzzz,Jordi,1357924680,jordi.zzzz@hotmail.com
+//Aaaa,Nuria,2468013579,nuria.aaaa@aol.com
