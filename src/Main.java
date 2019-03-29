@@ -23,28 +23,29 @@ public class Main {
         //File f = new File("resources\\contacts\\contacts.txt");
         //System.out.println("Absolute path: " + f.getAbsolutePath());
 
+try readFile(Contacts.txt);
 
-        try (BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\JavaUser\\Jademy\\Contacts.txt"))) {
-            String sCurrentLine = "";
-
-            String header = in.readLine();
-
-            while ((sCurrentLine = in.readLine()) != null) {
-                String[] parts = sCurrentLine.split(",");
-                // for (int i = 0; i < parts.length; i++) {
-                    // System.out.print(parts[i]);
-                    // System.out.println();
-                // }
-                String lastName = parts[0];
-                String firstName = parts[1];
-                String phoneNumber = parts[2];
-                String email = parts[3];
-                Contact contact = new Contact(firstName, lastName, phoneNumber, email);
-                contacts.put(contact.getFullName(), contact);
-            }
-        } catch (IOException e) {
-            System.out.println("The file doesn't exist");
-        }
+//        try (BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\JavaUser\\Jademy\\Contacts.txt" ))) {
+//            String sCurrentLine = "";
+//
+//            String header = in.readLine();
+//
+//            while ((sCurrentLine = in.readLine()) != null) {
+//                String[] parts = sCurrentLine.split("," );
+//                // for (int i = 0; i < parts.length; i++) {
+//                // System.out.print(parts[i]);
+//                // System.out.println();
+//                // }
+//                String lastName = parts[0];
+//                String firstName = parts[1];
+//                String phoneNumber = parts[2];
+//                String email = parts[3];
+//                Contact contact = new Contact(firstName, lastName, phoneNumber, email);
+//                contacts.put(contact.getFullName(), contact);
+//            }
+//        } catch (IOException e) {
+//            System.out.println("The file doesn't exist" );
+//        }
 
 //        try {
 //            Contact c3 = Contact.addContact();
@@ -56,7 +57,7 @@ public class Main {
         try {
             writeFile(contacts);
         } catch (IOException e) {
-            System.out.println("There is no such file");
+            System.out.println("There is no such file" );
         }
 
         printContacts(contacts);
@@ -86,24 +87,52 @@ public class Main {
         }
     }
 
-    public static void writeFile(Map<String, Contact> contacts) throws IOException {
-        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("C:\\Users\\JavaUser\\Jademy\\Contacts.txt")));
-        out.write("LastName,FirstName,PhoneNumber,Email");
-        out.println();
-        for(Contact c : contacts.values()) {
-            String contact = c.getLastName() + "," + c.getFirstName() + "," + c.getPhoneNumber() + "," + c.getEmail();
-            out.write(contact);
-            out.println();
+
+
+
+
+    public static void readFile(File file) throws IOException {
+        try (BufferedReader in = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
+            String sCurrentLine = "";
+            String header = in.readLine();
+            while ((sCurrentLine = in.readLine()) != null) {
+                String[] parts = sCurrentLine.split("," );
+                for (int i = 0; i < parts.length; i++) {
+                    System.out.print(parts[i]);
+                    System.out.println();
+                }
+                String lastName = parts[0];
+                String firstName = parts[1];
+                String phoneNumber = parts[2];
+                String email = parts[3];
+            }
+        } catch (IOException e) {
+            System.out.println("The file doesn't exist" );
         }
-        out.flush();
     }
+
+
+
+
+
+        public static void writeFile (Map < String, Contact > contacts) throws IOException {
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("C:\\Users\\JavaUser\\Jademy\\Contacts.txt" )));
+            out.write("LastName,FirstName,PhoneNumber,Email" );
+            out.println();
+            for (Contact c : contacts.values()) {
+                String contact = c.getLastName() + "," + c.getFirstName() + "," + c.getPhoneNumber() + "," + c.getEmail();
+                out.write(contact);
+                out.println();
+            }
+            out.flush();
+        }
 
 //    class SortByLastName implements Comparator<Contact> {
 //        public int compare(Contact a, Contact b) {
 //            return a.getLastName().compareTo(b.getLastName());
 //        }
 //    }
-}
+    }
 
 //LastName,FirstName,PhoneNumber,Email
 //Popa,Andrei,1234567890,andrei.popa@gmail.com
